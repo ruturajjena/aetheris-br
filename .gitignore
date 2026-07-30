@@ -8,5 +8,6 @@ assets
 
 .DS_Store
 tsconfig.tsbuildinfo
+.claude/scheduled_tasks.lock
 *.log
 npm-debug.log*
