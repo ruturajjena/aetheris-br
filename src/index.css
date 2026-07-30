@@ -1,0 +1,180 @@
+@import 'tailwindcss';
+
+@import '@fontsource-variable/inter';
+@import '@fontsource-variable/playfair-display';
+@import '@fontsource-variable/space-grotesk';
+
+/* ------------------------------------------------------------------
+   AETHERIS — design tokens
+------------------------------------------------------------------ */
+@theme {
+  --color-canvas: #fafaf8;
+  --color-card: #ffffff;
+  --color-ink: #111111;
+  --color-muted: #666666;
+  --color-gold: #d8b46a;
+  --color-gold-soft: #e8d5ac;
+  --color-hairline: rgba(17, 17, 17, 0.1);
+  --color-hairline-soft: rgba(17, 17, 17, 0.06);
+
+  --font-display: 'Playfair Display Variable', 'Canela', 'PP Editorial New', ui-serif, Georgia,
+    serif;
+  --font-sans: 'Inter Variable', ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-num: 'Space Grotesk Variable', 'Inter Variable', ui-monospace, monospace;
+
+  --ease-luxe: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@layer base {
+  * {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  html {
+    background: var(--color-canvas);
+    /* Lenis drives scrolling — never let the browser also smooth it. */
+    scroll-behavior: auto;
+  }
+
+  body {
+    margin: 0;
+    background: var(--color-canvas);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-synthesis-weight: none;
+    text-rendering: optimizeLegibility;
+    overflow-x: clip;
+  }
+
+  ::selection {
+    background: var(--color-gold);
+    color: #fff;
+  }
+
+  /* Custom cursor replaces the native one on fine pointers only. */
+  @media (pointer: fine) {
+    body.has-cursor,
+    body.has-cursor * {
+      cursor: none !important;
+    }
+  }
+
+  /* Lenis owns the scroll; the native bar would only fight the layout. */
+  html {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  ::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+  }
+}
+
+@layer utilities {
+  .glass {
+    background: rgba(255, 255, 255, 0.55);
+    backdrop-filter: blur(20px) saturate(160%);
+    -webkit-backdrop-filter: blur(20px) saturate(160%);
+    border: 1px solid rgba(255, 255, 255, 0.7);
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, 0.8) inset,
+      0 24px 60px -30px rgba(17, 17, 17, 0.28);
+  }
+
+  .glass-dim {
+    background: rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(24px) saturate(140%);
+    -webkit-backdrop-filter: blur(24px) saturate(140%);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+  }
+
+  .shadow-luxe {
+    box-shadow:
+      0 2px 8px -4px rgba(17, 17, 17, 0.08),
+      0 40px 80px -40px rgba(17, 17, 17, 0.3);
+  }
+
+  .eyebrow {
+    font-family: var(--font-sans);
+    font-size: 0.6875rem;
+    font-weight: 500;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: var(--color-muted);
+  }
+
+  .rule {
+    height: 1px;
+    background: var(--color-hairline);
+  }
+
+  /* Typographic scale — fluid, magazine-large. */
+  .t-display {
+    font-family: var(--font-display);
+    font-weight: 400;
+    line-height: 0.86;
+    letter-spacing: -0.03em;
+    font-size: clamp(2.6rem, 7.6vw, 9rem);
+  }
+
+  .t-h1 {
+    font-family: var(--font-display);
+    font-weight: 400;
+    line-height: 0.95;
+    letter-spacing: -0.025em;
+    font-size: clamp(2.5rem, 6.4vw, 6.5rem);
+  }
+
+  .t-h2 {
+    font-family: var(--font-display);
+    font-weight: 400;
+    line-height: 1.02;
+    letter-spacing: -0.02em;
+    font-size: clamp(2rem, 4.2vw, 4rem);
+  }
+
+  .t-h3 {
+    font-family: var(--font-display);
+    font-weight: 400;
+    line-height: 1.1;
+    letter-spacing: -0.015em;
+    font-size: clamp(1.375rem, 2vw, 2rem);
+  }
+
+  .t-body {
+    font-size: clamp(0.975rem, 1.05vw, 1.125rem);
+    line-height: 1.7;
+    color: var(--color-muted);
+    font-weight: 350;
+  }
+
+  .num {
+    font-family: var(--font-num);
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.04em;
+  }
+
+  /* SplitType targets — set up before ScrollTrigger reveals them. */
+  .line-mask {
+    display: block;
+    overflow: hidden;
+    padding-bottom: 0.08em;
+    margin-bottom: -0.08em;
+  }
+
+  .will-anim {
+    will-change: transform, opacity;
+  }
+}
+
+/* Respect users who ask for less motion: everything renders, nothing moves. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
+}

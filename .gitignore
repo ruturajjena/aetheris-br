@@ -1,0 +1,12 @@
+node_modules
+dist
+dist-ssr
+*.local
+
+# raw production assets — the site serves the optimized copies in public/
+assets
+
+.DS_Store
+tsconfig.tsbuildinfo
+*.log
+npm-debug.log*
